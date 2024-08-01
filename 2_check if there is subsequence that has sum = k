@@ -1,0 +1,32 @@
+https://www.naukri.com/code360/problems/subset-sum_630213?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+bool check(int index, vector<int>& temp, int sum, int size, int target, vector<int> &a){
+    if(sum == target)  return true;
+
+    if(index >= size){
+        if(sum == target)  return true;
+
+        return false;
+    }
+
+    if (sum < target) {  // without this it will give tle 
+        temp.push_back(a[index]);
+        sum += a[index];
+        if (check(index + 1, temp, sum, size, target, a))
+          return true;
+
+        temp.pop_back();
+        sum -= a[index];
+        if (check(index + 1, temp, sum, size, target, a))
+          return true;
+
+        return false;
+    }
+    
+    return false;
+}
+bool isSubsetPresent(int n, int k, vector<int> &a)
+{
+    vector<int> temp;
+    return check(0, temp, 0, n, k, a);
+}
